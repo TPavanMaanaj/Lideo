@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
   return (
     <div className="w-64 bg-gray-900 text-white h-screen flex flex-col flex-shrink-0">
       <div className="p-6 border-b border-gray-800">
-        <h2 className="text-xl font-bold  font-family: var(--font-Oswald)">Lideo</h2>
+        <h2 className="text-xl font-bold  font-family: var(--font-)">Lideo</h2>
       </div>
       
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
