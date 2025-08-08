@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Eye, EyeOff, LogIn, Shield } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import SuperAdminCodeLogin from './SuperAdminCodeLogin';
+import { UserDTO } from '../../types';
 
 const LoginForm: React.FC = () => {
   const [showSuperAdminCodeLogin, setShowSuperAdminCodeLogin] = useState(false);
@@ -10,9 +11,10 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { login, isLoading } = useAuth();
-
+  const [LoginDetail, setLoginDetail] = useState<UserDTO[]>([]);
+  
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+        e.preventDefault();
     setError('');
     
     const success = await login(email, password);
@@ -21,13 +23,7 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  const demoAccounts = [
-    { email: 'admin@iitd.ac.in', role: 'University Admin (IIT Delhi)' },
-    { email: 'admin@iitb.ac.in', role: 'University Admin (IIT Bombay)' },
-    { email: 'admin@iisc.ac.in', role: 'University Admin (IISc Bangalore)' },
-    { email: 'student@iitd.ac.in', role: 'Student (IIT Delhi)' },
-    { email: 'student@iitb.ac.in', role: 'Student (IIT Bombay)' }
-  ];
+
 
   if (showSuperAdminCodeLogin) {
     return <SuperAdminCodeLogin onBackToLogin={() => setShowSuperAdminCodeLogin(false)} />;
@@ -41,7 +37,7 @@ const LoginForm: React.FC = () => {
             <LogIn size={32} className="text-white" />
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-            Learning Management System
+             Lideo
           </h2>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to your account
@@ -112,32 +108,6 @@ const LoginForm: React.FC = () => {
             </button>
           </div>
         </form>
-
-        <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Demo Accounts</h3>
-          <div className="space-y-3">
-            {demoAccounts.map((account, index) => (
-              <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{account.role}</p>
-                  <p className="text-sm text-gray-600">{account.email}</p>
-                </div>
-                <button
-                  onClick={() => {
-                    setEmail(account.email);
-                    setPassword('password');
-                  }}
-                  className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
-                >
-                  Use
-                </button>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 text-xs text-gray-500">
-            Password for all demo accounts: <code className="bg-gray-100 px-1 py-0.5 rounded">password</code>
-          </p>
-        </div>
 
         <div className="text-center">
           <button

@@ -12,7 +12,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 
 interface SidebarProps {
-  activeTab: string;
+  activeTab: string;  
   onTabChange: (tab: string) => void;
 }
 
@@ -21,17 +21,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
 
   const getMenuItems = () => {
     switch (user?.role) {
-      case 'super_admin':
+      case 'SUPER_ADMIN':
         return [
           { id: 'dashboard', label: 'Dashboard', icon: Home },
           { id: 'universities', label: 'Universities', icon: Building },
           { id: 'admins', label: 'Admins', icon: UserCheck },
-          { id: 'courses', label: 'Courses', icon: BookOpen },
           { id: 'students', label: 'Students', icon: Users },
           { id: 'analytics', label: 'Analytics', icon: BarChart3 },
           { id: 'settings', label: 'Settings', icon: Settings }
         ];
-      case 'university_admin':
+      case 'UNIVERSITY_ADMIN':
         return [
           { id: 'dashboard', label: 'Dashboard', icon: Home },
           { id: 'courses', label: 'Courses', icon: BookOpen },
@@ -39,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
           { id: 'analytics', label: 'Analytics', icon: BarChart3 },
           { id: 'settings', label: 'Settings', icon: Settings }
         ];
-      case 'student':
+      case 'STUDENT':
         return [
           { id: 'dashboard', label: 'Dashboard', icon: Home },
           { id: 'courses', label: 'My Courses', icon: BookOpen },
@@ -79,6 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
           );
         })}
       </nav>
+      
     </div>
   );
 };

@@ -1,12 +1,43 @@
 export interface User {
   id: string;
   email: string;
-  name: string;
+  fullName: string;
   role: 'super_admin' | 'university_admin' | 'student';
   universityId?: string;
   studentId?: string;
   createdAt: string;
 }
+
+// src/types/User.ts
+export interface UserDTO {
+  id: number;
+  username: string;
+  email: string;
+  fullName: string;
+  phoneNumber: string;
+  role: 'SUPER_ADMIN' | 'UNIVERSITY_ADMIN' | 'STUDENT';
+  usercode: string;
+  dept:string;
+  year: number;
+  universityId: number;
+  universityName: string;
+  university:Universities;
+  est_yr: number;
+  status: 'ACTIVE' | 'INACTIVE';
+  Courses: Courses;
+  grades:Enrollment["grade"];
+}
+export interface Universities {
+  id: number;
+  address: string;
+  email: string;
+  phoneNumber: number;
+   name: string;
+  universityCode: string; 
+  est_yr: number;
+  status: 'ACTIVE' | 'INACTIVE';
+}
+
 
 export interface University {
   id: string;
@@ -21,56 +52,61 @@ export interface University {
   createdAt: string;
 }
 
-export interface Course {
+export interface Courses {
   id: string;
   name: string;
   code: string;
   description: string;
-  universityId: string;
+  universityId: number;
   universityName: string;
   instructor: string;
   credits: number;
-  duration: string;
+  durationWeeks: number;
   capacity: number;
   enrolled: number;
   category: string;
-  status: 'active' | 'inactive';
-  materials: CourseMaterial[];
+  status: 'ACTIVE' | 'INACTIVE';
   createdAt: string;
+  instructorId:number;
+  materials: 'DOCUMENT' | 'VIDEO' | 'LINK' | 'ASSINGMENT';
+  videoUrl: string;
+  documentUrl:string;
+  durationMinutes:number;
+  sortOrder:number;
 }
 
-export interface CourseMaterial {
-  id: string;
+export interface CourseTopic {
+  id: number;
   title: string;
-  type: 'document' | 'video' | 'link' | 'assignment';
-  url: string;
+  materials: 'DOCUMENT' | 'VIDEO' | 'LINK' | 'ASSIGNMENT';
+  videoUrl: string;
+  documentUrl:string,
   description: string;
+  courseId: number;
+  universityId: string;
   uploadedAt: string;
+  durationMinutes:number;
+  sortOrder:number
 }
 
-export interface Student {
-  id: string;
-  name: string;
-  email: string;
-  universityId: string;
-  universityName: string;
-  studentId: string;
-  enrolledCourses: string[];
-  grades: Record<string, string>;
-  year: number;
-  major: string;
-  status: 'active' | 'inactive';
-  createdAt: string;
-}
 
 export interface Enrollment {
   id: string;
-  studentId: string;
-  courseId: string;
+  studentId: number;
+  universityId: number;
+  courseId: number;
   enrolledAt: string;
   status: 'enrolled' | 'completed' | 'dropped';
-  grade?: string;
+  grade: string;
+  credits:number;
+  Courses: Courses;
+  name:string;
+  code:string;
+  description:string;
+  durationWeeks:number;
+  category:string;
+  materials:CourseTopic[];
+  coursestatus: 'ACTIVE' | 'INACTIVE';
+  instructorId:number;
+  instructor:string;
 }
-
-// Legacy types for backward compatibility
-export type College = University;

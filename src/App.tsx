@@ -1,7 +1,10 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoginForm from './components/Auth/LoginForm';
 import MainLayout from './components/Layout/MainLayout';
+import CourseMaterials from './components/Courses/CourseMaterials'; // 👈 create this component
+import AddTopicsPage from './components/Courses/AddTopicsPage';
 
 const AppContent: React.FC = () => {
   const { user, isLoading } = useAuth();
@@ -16,14 +19,30 @@ const AppContent: React.FC = () => {
       </div>
     );
   }
-
-  return user ? <MainLayout /> : <LoginForm />;
+  return (
+    <Routes>
+      {user ? (
+        <>
+          {/* Main application routes */}
+          {/* <Route path="/superadmincodelogin" element={<SuperAdminCodeLogin onBackToLogin={()=> navigate('/')}/>} /> */}
+          <Route path="/" element={<MainLayout />} />
+          <Route path="/course/:courseId/materials" element={<CourseMaterials />} />
+          <Route path="/add-topics/:courseId/:instructorId/:universityId" element={<AddTopicsPage />} />
+          {/* Add more routes as needed */}
+        </>
+      ) : (
+        <Route path="*" element={<LoginForm />} />
+      )}
+    </Routes>
+  );
 };
 
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
     </AuthProvider>
   );
 }
